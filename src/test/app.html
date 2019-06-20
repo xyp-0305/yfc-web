@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript" src="./jquery-3.3.1.js"></script>
+<script type="text/javascript" src="./md5.js"></script>
+<script type="text/javascript">
+    var Timestamp = Math.round(new Date() / 1000)
+    console.log(Timestamp)
+    var key = "RWERFGSDDGTWETGD";
+    var sign = hex_md5(key+'Key'+key+'Timestamp'+Timestamp+key).toUpperCase();
+    console.log(sign)
+    var url=this.HOST + "/api/Account/GetToken";
+    $.ajax({
+      url: url,
+      type: "POST",
+      data:{
+        'Body': "17710333466",
+        'Timestamp':Timestamp,
+        'Key': key,
+        'Sign': sign
+      },
+      dataType: "json", //指定服务器返回的数据类型
+      success: function(data) {
+          console.log(data)
+        var result = JSON.stringify(data);
+        console.log(result);
+      },
+      error:function(err){
+          console.log('err')
+        console.log(err)
+      }
+    });
+</script>
+</html>
